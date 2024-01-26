@@ -1,0 +1,77 @@
+﻿@model PaginacionRespuesta<Constructora>
+
+@{
+    ViewData["Title"] = "Lista Constructoras";
+}
+
+<h1>Constructoras</h1>
+
+<a class="btn btn-secondary" asp-controller="Home" asp-action="Index">Regresar</a>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>RFC</th>
+            <th>Telefono</th>
+            <th>CorreoContacto</th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var constructora in Model.Elementos)
+        {
+            <tr>
+                <td>
+                    @constructora.Nombre
+                </td>
+                <td>
+                    @constructora.Rfc
+                </td>
+                <td>
+                    @constructora.Telefono
+                </td>
+                <td>
+                    @constructora.CorreoContacto
+                </td>
+                <td>
+                    <a class="btn btn-primary" asp-controller="Constructoras" asp-action="ModificarConstructora" asp-route-idConstructora="@constructora.IdConstructora">Editar</a>
+                </td>
+                <td>
+                    <a class="btn btn-danger" asp-controller="Constructoras" asp-action="EliminarConstructora" asp-route-idConstructora="@constructora.IdConstructora">Eliminar</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<partial name="_Paginacion" />
+
+<a asp-controller="Constructoras" asp-action="AgregarConstructora" class="btn btn-primary mb-3">Agregar constructora</a>
+
+<form method="get" asp-controller="Constructoras" asp-action="ListaConstructoras">
+    <label asp-for="criterioOrden">Ordenar por: </label>
+    <select asp-for="criterioOrden">
+        <option value="1">Nombre</option>
+        <option value="2">Correo contacto</option>
+    </select>
+    <select asp-for="direccionOrden">
+        <option value="1">Ascendiente</option>
+        <option value="2">Descendiente</option>
+    </select>
+    <button type="submit" class="btn btn-secondary">Ordenar</button>
+</form>
+
+<form method="get" asp-controller="Constructoras" asp-action="ListaConstructoras">
+    <label asp-for="criterioBusqueda">Buscar por: </label>
+    <select asp-for="criterioBusqueda">
+        <option value="1">Nombre</option>
+        <option value="2">Correo contacto</option>
+        <option value="3">RFC</option>
+    </select>
+    <input type="text" asp-for="datoBusqueda" />
+    <button type="submit" class="btn btn-secondary">Buscar</button>
+</form>
+
+<p>Registros por pagina: @Model.registrosPagina - Total registros: @Model.totalRegistros</p>

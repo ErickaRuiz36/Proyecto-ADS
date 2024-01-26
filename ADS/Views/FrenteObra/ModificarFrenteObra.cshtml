@@ -1,0 +1,99 @@
+﻿@model FrenteObra
+
+@{
+    ViewData["Title"] = "Modificar Frente de Obra";
+}
+
+<h2>Modificar Frente de obra @Model.Nombre del proyecto con id @Model.IdProyecto</h2>
+
+<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+<form asp-controller="FrenteObra" asp-action="ModificarFrenteObra">
+    <input type="number" asp-for="IdFrenteObra" hidden />
+    <input type="number" asp-for="IdProyecto" hidden />
+    <div class="mb-3">
+        <label asp-for="Nombre" class="form-label">Nombre: </label>
+        <input type="text" asp-for="Nombre" class="form-control" value="@Model.Nombre" />
+        <span asp-validation-for="Nombre" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Descripcion" class="form-label">Descripcion: </label>
+        <input type="text" asp-for="Descripcion" class="form-control" value="@Model.Descripcion" />
+        <span asp-validation-for="Descripcion" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="IdResidente" class="form-label">Residente: </label>
+        <input type="number" asp-for="IdResidente" class="form-control" value="@Model.IdResidente" />
+        <span asp-validation-for="IdResidente" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="IdSupervisor" class="form-label">Supervisor: </label>
+        <input type="number" asp-for="IdSupervisor" class="form-control" value="@Model.IdSupervisor" />
+        <span asp-validation-for="IdSupervisor" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="IdSuperintendente" class="form-label">Superintendente: </label>
+        <input type="number" asp-for="IdSuperintendente" class="form-control" value="@Model.IdSuperintendente" />
+        <span asp-validation-for="IdSuperintendente" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="IdConstructora" class="form-label">Constructora: </label>
+        <input type="number" asp-for="IdConstructora" class="form-control" value="@Model.IdConstructora" />
+        <span asp-validation-for="IdConstructora" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="NumContrato" class="form-label">Numero de contrato: </label>
+        <input type="number" asp-for="NumContrato" class="form-control" value="@Model.NumContrato />
+        <span asp-validation-for="NumContrato" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="FechaContrato" class="form-label">Fecha de Contrato: </label>
+        <input type="date" asp-for="FechaContrato" class="form-control" value="@Model.FechaContrato?.ToString("yyyy-MM-dd") />
+        <span asp-validation-for="FechaContrato" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="FechaInicio" class="form-label" value="@Model.FechaInicio">Fecha de inicio: </label>
+        <input type="date" asp-for="FechaInicio" class="form-control" value="@Model.FechaInicio?.ToString("yyyy-MM-dd")" />
+        <span asp-validation-for="FechaInicio" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="FechaEstimadaTermino" class="form-label">Fecha estimada de termino: </label>
+        <input type="date" asp-for="FechaEstimadaTermino" class="form-control" value="@Model.FechaEstimadaTermino?.ToString("yyyy-MM-dd")" />
+        <span asp-validation-for="FechaEstimadaTermino" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Modificar</button>
+</form>
+
+<a class="btn btn-secondary" asp-controller="FrenteObra" asp-action="DetallesFrenteObra" asp-route-idFrenteObra="@Model.IdFrenteObra">Cancelar</a>
+<a class="btn btn-primary" onclick="restablecerValores()">Reestablecer</a>
+
+<script>
+    function restablecerValores() {
+        var Nombre = "@Html.Raw(Model.Nombre)";
+        var Descripcion = "@Html.Raw(Model.Descripcion)";
+        var Residente = "@Html.Raw(Model.IdResidente)";
+        var Supervisor = "@Html.Raw(Model.IdSupervisor)";
+        var Superintendente = "@Html.Raw(Model.IdSuperintendente)";
+        var Constructora = "@Html.Raw(Model.IdConstructora)";
+        var NumContrato = "@Html.Raw(Model.NumContrato)";
+        var FechaContrato = "@Html.Raw(Model.FechaContrato?.ToString("yyyy-MM-dd"))";
+        var FechaInicio = "@Html.Raw(Model.FechaInicio?.ToString("yyyy-MM-dd"))";
+        var FechaEstimadaTermino = "@Html.Raw(Model.FechaEstimadaTermino?.ToString("yyyy-MM-dd"))";
+
+        document.getElementById("Nombre").value = Nombre;
+        document.getElementById("Descripcion").value = Descripcion;
+        document.getElementById("IdResidente").value = Residente;
+        document.getElementById("IdSupervisor").value = Supervisor;
+        document.getElementById("IdSuperintendente").value = Superintendente;
+        document.getElementById("IdConstructora").value = Constructora;
+        document.getElementById("NumContrato").value = NumContrato;
+        document.getElementById("FechaContrato").value = FechaContrato;
+        document.getElementById("FechaInicio").value = FechaInicio;
+        document.getElementById("FechaEstimadaTermino").value = FechaEstimadaTermino;
+    }
+
+</script>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

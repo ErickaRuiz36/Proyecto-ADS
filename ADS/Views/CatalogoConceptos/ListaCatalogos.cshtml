@@ -1,0 +1,79 @@
+﻿@model PaginacionRespuesta<CatalogosViewModel>
+
+@{
+    ViewData["Title"] = "Lista Catalogos";
+}
+
+<h1>Catalogos</h1>
+
+<a class="btn btn-secondary" asp-controller="Home" asp-action="Index">Regresar</a>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Proyecto</th>
+            <th>Num. Contrato Proyecto</th>
+            <th>Frente de obra</th>
+            <th>Num. Contrato Frente de obra</th>
+            <th>Num. Conceptos</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @if(Model.Elementos != null)
+        {
+            foreach (var catalogo in Model.Elementos)
+            {
+                <tr>
+                    <td>
+                        @catalogo.NombreProyecto
+                    </td>
+                    <td>
+                        @catalogo.NumContratoProyecto
+                    </td>
+                    <td>
+                        @catalogo.NombreFrenteObra
+                    </td>
+                    <td>
+                        @catalogo.NumContratoFrente
+                    </td>
+                    <td>
+                        @catalogo.NumConceptos
+                    </td>
+                    <td>
+                        <a class="btn btn-primary" asp-controller="CatalogoConceptos" asp-action="ListaCatalogoConceptos" asp-route-id="@catalogo.idFrenteObra">Abrir</a>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+<partial name="_Paginacion" />
+
+<form method="get" asp-controller="CatalogoConceptos" asp-action="ListaCatalogos">
+    <label asp-for="criterioOrden">Ordenar por: </label>
+    <select asp-for="criterioOrden">
+        <option value="1">Proyecto</option>
+        <option value="2">Frente de Obra</option>
+    </select>
+    <select asp-for="direccionOrden">
+        <option value="1">Ascendiente</option>
+        <option value="2">Descendiente</option>
+    </select>
+    <button type="submit" class="btn btn-secondary">Ordenar</button>
+</form>
+
+<form method="get" asp-controller="CatalogoConceptos" asp-action="ListaCatalogos">
+    <label asp-for="criterioBusqueda">Buscar por: </label>
+    <select asp-for="criterioBusqueda">
+        <option value="1">Proyecto</option>
+        <option value="2">Frente de Obra</option>
+        <option value="3">Contrato Proyecto</option>
+        <option value="4">Contrato Frente de Obra</option>
+    </select>
+    <input type="text" asp-for="datoBusqueda" />
+    <button type="submit" class="btn btn-secondary">Buscar</button>
+</form>
+
+<p>Registros por pagina: @Model.registrosPagina - Total registros: @Model.totalRegistros</p>

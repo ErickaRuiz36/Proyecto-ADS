@@ -1,0 +1,9 @@
+﻿@{
+    ViewData["Title"] = "Inicio Residente";
+    var id = ViewData["idFrenteObra"];
+}
+
+<a asp-controller="ReporteDiario" asp-action="ListaReportesDiarios" class="btn btn-primary mb-3">Reportes diarios</a>
+<a asp-controller="Facturas" asp-action="ListaFacturas" class="btn btn-primary mb-3">Facturas</a>
+<a asp-controller="CatalogoConceptos" asp-action="ListaCatalogoConceptos" asp-route-id="@id" class="btn btn-primary mb-3">Catalogo de conceptos</a>
+<a asp-controller="DirectorioArchivos" asp-action="DirectorioArchivos" class="btn btn-primary mb-3">Directorio de archivos</a>

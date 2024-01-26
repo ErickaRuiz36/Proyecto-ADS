@@ -1,0 +1,54 @@
+﻿@model Proyecto
+
+@{
+    ViewData["Title"] = "Registrar Proyecto";
+}
+
+<h2>Agregar proyecto</h2>
+
+<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+<form asp-controller="Proyectos" asp-action="RegistrarProyecto">
+    <div class="mb-3">
+        <label asp-for="Nombre" class="form-label">Nombre del proyecto: </label>
+        <input type="text" asp-for="Nombre" class="form-control"  />
+        <span asp-validation-for="Nombre" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Descripcion" class="form-label">Descripcion: </label>
+        <input type="text" asp-for="Descripcion" class="form-control"  />
+        <span asp-validation-for="Descripcion" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="FechaInicio" class="form-label" >Fecha de inicio: </label>
+        <input type="date" asp-for="FechaInicio" class="form-control"  />
+        <span asp-validation-for="FechaInicio" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="FechaEstimadaTermino" class="form-label">Fecha estimada de termino: </label>
+        <input type="date" asp-for="FechaEstimadaTermino" class="form-control"  />
+        <span asp-validation-for="FechaEstimadaTermino" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="RFCContratista" class="form-label">RFC del contratista: </label>
+        <input type="text" asp-for="RFCContratista" class="form-control"  />
+        <span asp-validation-for="RFCContratista" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="NumContrato" class="form-label">Numero de contrato: </label>
+        <input type="number" asp-for="NumContrato" class="form-control"  />
+        <span asp-validation-for="NumContrato" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="FechaContrato" class="form-label">Fecha contrato: </label>
+        <input type="date" asp-for="FechaContrato" class="form-control"  />
+        <span asp-validation-for="FechaContrato" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Agregar</button>
+</form>
+
+<a class="btn btn-secondary" asp-controller="Proyectos" asp-action="ListaProyectos">Cancelar</a>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

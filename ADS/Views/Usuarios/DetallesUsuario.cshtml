@@ -1,0 +1,29 @@
+﻿@model UsuarioViewModel
+
+@{
+	ViewData["Title"] = "Detalles Usuario";
+}
+
+<h2>@Model.NombreUsuario</h2>
+
+<div id="ContenedorImagen">
+	<img src="~/perfil.jpg" width="100px"/>
+</div>
+<div id="ContenedorInformacion">
+	<strong>Nombre de Usuario: </strong><p>@Model.NombreUsuario</p>
+	<strong>Correo: </strong><p>@Model.Correo</p>
+	<strong>Clave: </strong><p>@Model.Clave</p>
+	<strong>Nombre: </strong><p>@Model.Nombre</p>
+	<strong>Apellido Paterno: </strong><p>@Model.ApellidoP</p>
+	<strong>Apellido Materno: </strong><p>@Model.ApellidoM</p>
+	<strong>RFC: </strong><p>@Model.Rfc</p>
+	<strong>Telefono: </strong><p>@Model.Telefono</p>
+	<strong>Tipo Usuario: </strong><p>@Model.TipoUsuario</p>
+
+	
+</div>
+
+<a class="btn btn-primary" asp-controller="Usuarios" asp-action="ModificarUsuario" asp-route-idUsuario="@Model.IdUsuario">Editar</a>
+<a class="btn btn-danger" asp-controller="Usuarios" asp-action="EliminarUsuario" asp-route-idUsuario="@Model.IdUsuario">Eliminar</a>
+
+<a class="btn btn-secondary" asp-controller="Usuarios" asp-action="ListaUsuarios">Atras</a>

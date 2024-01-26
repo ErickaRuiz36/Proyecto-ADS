@@ -1,0 +1,88 @@
+﻿@model PaginacionRespuesta<Proyecto>
+
+@{
+    ViewData["Title"] = "Lista de proyectos";
+}
+
+<h1>Proyectos</h1>
+
+<a class="btn btn-secondary" asp-controller="Home" asp-action="Index">Regresar</a>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Descripcion</th>
+            <th>FechaInicio</th>
+            <th>FechaEstimadaTermino</th>
+            <th>RFCContratista</th>
+            <th>NumContrato</th>
+            <th>FechaContrato</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var proyecto in Model.Elementos)
+        {
+            <tr>
+                <td>
+                    @proyecto.Nombre
+                </td>
+                <td>
+                    @proyecto.Descripcion
+                </td>
+                <td>
+                    @proyecto.FechaInicio
+                </td>
+                <td>
+                    @proyecto.FechaEstimadaTermino
+                </td>
+                <td>
+                    @proyecto.RFCContratista
+                </td>
+                <td>
+                    @proyecto.NumContrato
+                </td>
+                <td>
+                    @proyecto.FechaContrato
+                </td>
+                <td>
+                    <a class="btn btn-primary" asp-controller="Proyectos" asp-action="DetallesProyecto" asp-route-idProyecto="@proyecto.IdProyecto">Detalles</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<partial name="_Paginacion" />
+
+<a asp-controller="Proyectos" asp-action="RegistrarProyecto" class="btn btn-primary mb-3">Registrar nuevo proyecto</a>
+
+<form method="get" asp-controller="Proyectos" asp-action="ListaProyectos">
+    <label asp-for="criterioOrden">Ordenar por: </label>
+    <select asp-for="criterioOrden">
+        <option value="1">Nombre</option>
+        <option value="2">Fecha Inicio</option>
+        <option value="3">Fecha Estimada Termino</option>
+        <option value="3">Fecha Contrato</option>
+    </select>
+    <select asp-for="direccionOrden">
+        <option value="1">Ascendiente</option>
+        <option value="2">Descendiente</option>
+    </select>
+    <button type="submit" class="btn btn-secondary">Ordenar</button>
+</form>
+
+<form method="get" asp-controller="Proyectos" asp-action="ListaProyectos">
+    <label asp-for="criterioBusqueda">Buscar por: </label>
+    <select asp-for="criterioBusqueda">
+        <option value="1">Nombre</option>
+        <option value="2">Descripcion</option>
+        <option value="3">RFC Contratista</option>
+        <option value="4">Numero de contrato </option>
+    </select>
+    <input type="text" asp-for="datoBusqueda" />
+    <button type="submit" class="btn btn-secondary">Buscar</button>
+</form>
+
+<p>Registros por pagina: @Model.registrosPagina - Total registros: @Model.totalRegistros</p>

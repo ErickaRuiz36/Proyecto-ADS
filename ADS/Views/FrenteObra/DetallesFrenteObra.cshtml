@@ -1,0 +1,27 @@
+﻿@model FrenteObra
+
+@{
+	ViewData["Title"] = "Detalles Frente Obra";
+}
+
+<a class="btn btn-secondary" asp-controller="Proyectos" asp-action="DetallesProyecto" asp-route-idProyecto="@Model.IdProyecto">Atras</a>
+
+<h2>Frente de obra: @Model.Nombre</h2>
+
+<div id="ContenedorInformacion">
+	<strong>Nombre: </strong><p>@Model.Nombre</p>
+	<strong>Descripcion: </strong><p>@Model.Descripcion</p>
+	<strong>Proyecto: </strong><p>@Model.IdProyectoNavigation.Nombre</p>
+	<strong>Residente: </strong><p>@Model.IdResidenteNavigation.Nombre @Model.IdResidenteNavigation.ApellidoP</p>
+	<strong>Supervisor: </strong><p>@Model.IdSupervisorNavigation.Nombre @Model.IdSupervisorNavigation.ApellidoP</p>
+	<strong>Superintendente: </strong><p>@Model.IdSuperintendenteNavigation.Nombre @Model.IdSuperintendenteNavigation.ApellidoP</p>
+	<strong>Constructora: </strong><p>@Model.IdConstructoraNavigation.Nombre</p>
+	<strong>Numero de contrato: </strong><p>@Model.NumContrato</p>
+	<strong>Fecha de Contrato: </strong><p>@Model.FechaContrato</p>
+	<strong>Fecha de inicio: </strong><p>@Model.FechaInicio</p>
+	<strong>Fecha estimada de termino: </strong><p>@Model.FechaEstimadaTermino</p>
+
+</div>
+
+<a class="btn btn-primary" asp-controller="FrenteObra" asp-action="ModificarFrenteObra" asp-route-idFrenteObra="@Model.IdFrenteObra">Editar</a>
+<a class="btn btn-danger" asp-controller="FrenteObra" asp-action="EliminarFrenteObra" asp-route-idFrenteObra="@Model.IdFrenteObra">Eliminar</a>

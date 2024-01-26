@@ -1,0 +1,156 @@
+﻿@using Microsoft.AspNetCore.Identity
+@model PaginacionRespuesta<Concepto>
+
+@{
+    ViewData["Title"] = "Catalogo de conceptos";
+}
+
+
+<h1>Catalogo de Conceptos</h1>
+
+@if(User.IsInRole("Administrador") || User.IsInRole("Superintendente"))
+{
+    <a asp-controller="CatalogoConceptos" asp-action="AgregarConcepto" class="btn btn-primary mb-3" asp-route-IdFrenteObra="@Model.Elementos.FirstOrDefault().IdFrenteObra">Agregar concepto</a>
+}
+
+@if (User.IsInRole("Administrador"))
+{
+    <a class="btn btn-secondary" asp-controller="CatalogoConceptos" asp-action="ListaCatalogos">Regresar</a>
+}
+@if (User.IsInRole("Superintendente") || User.IsInRole("Residente") )
+{
+    <a class="btn btn-secondary" asp-controller="Home" asp-action="Index">Regresar</a>
+}
+@if (User.IsInRole("Superintendente") || User.IsInRole("Residente"))
+{
+    <a class="btn btn-primary" asp-controller="CatalogoConceptos" asp-action="ListaCatalogoConceptos" asp-route-id="@Model.Elementos.FirstOrDefault().IdFrenteObra" asp-route-estado="2">Catalogo</a>
+    <a class="btn btn-primary" asp-controller="CatalogoConceptos" asp-action="ListaCatalogoConceptos" asp-route-id="@Model.Elementos.FirstOrDefault().IdFrenteObra" asp-route-estado="1">Pendientes</a>
+    <a class="btn btn-primary" asp-controller="CatalogoConceptos" asp-action="ListaCatalogoConceptos" asp-route-id="@Model.Elementos.FirstOrDefault().IdFrenteObra" asp-route-estado="3">Rechazados</a>
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Codigo</th>
+            <th>Concepto</th>
+            <th>Descripcion</th>
+            <th>Cantidad</th>
+            <th>Unidad</th>
+            <th>Costo por unidad</th>
+            <th>Tipo Concepto</th>
+            
+            <th>Estado</th>
+            <th>Concepto base</th>
+            <th></th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @if(Model.Elementos.FirstOrDefault().Codigo != null)
+        {
+            @foreach (var concepto in Model.Elementos)
+            {
+                <tr>
+                    <td>
+                        @concepto.Codigo
+                    </td>
+                    <td>
+                        @concepto.Concepto1
+                    </td>
+                    <td>
+                        @concepto.Descripcion
+                    </td>
+                    <td>
+                        @concepto.Cantidad
+                    </td>
+                    <td>
+                        @concepto.Unidad
+                    </td>
+                    <td>
+                        @concepto.CostoUnidad
+                    </td>
+
+                    @if (concepto.IdTipoConceptoNavigation != null)
+                    {
+                        <td>
+                            @concepto.IdTipoConceptoNavigation.TipoConcepto1
+                        </td>
+                    }
+                    else
+                    {
+                        <td></td>
+                    }
+
+                    
+
+                    @if (concepto.IdEstadoNavigation != null)
+                    {
+                        <td>
+                            @concepto.IdEstadoNavigation.Estado1
+                        </td>
+                    }
+                    else
+                    {
+                        <td></td>
+                    }
+
+                    <td>
+                        @concepto.IdConceptoBase
+                    </td>
+
+                    @if (User.IsInRole("Superintendente") || User.IsInRole("Administrador"))
+                    {
+                        <td>
+                            <a class="btn btn-primary" asp-controller="CatalogoConceptos" asp-action="ModificarConcepto" asp-route-idConcepto="@concepto.IdConcepto">Editar</a>
+                        </td>
+                        <td>
+                            <a class="btn btn-danger" asp-controller="CatalogoConceptos" asp-action="EliminarConcepto" asp-route-idConcepto="@concepto.IdConcepto">Eliminar</a>
+                        </td>
+                        <td>
+                            <a class="btn btn-primary" asp-controller="CatalogoConceptos" asp-action="AgregarConcepto" asp-route-IdConceptoBase="@concepto.IdConcepto" asp-route-IdFrenteObra="@concepto.IdFrenteObra">Agregar Adicional</a>
+                        </td>
+                    }
+                    else if(concepto.IdEstado == 1)
+                    {
+                        <td>
+                            <a class="btn btn-primary" asp-controller="CatalogoConceptos" asp-action="AprobarConcepto" asp-route-idConcepto="@concepto.IdConcepto">Aprobar</a>
+                        </td>
+                        <td>
+                            <a class="btn btn-danger" asp-controller="CatalogoConceptos" asp-action="RechazarConcepto" asp-route-idConcepto="@concepto.IdConcepto">Rechazar</a>
+                        </td>
+                    }
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+<partial name="_Paginacion" />
+
+<form method="get" asp-controller="CatalogoConceptos" asp-action="ListaCatalogoConceptos" >
+    <label asp-for="criterioOrden">Ordenar por: </label>
+    <select asp-for="criterioOrden">
+        <option value="1">Codigo</option>
+        <option value="2">Concepto</option>
+        <option value="3">Costo unitario</option>
+    </select>
+    <select asp-for="direccionOrden">
+        <option value="1">Ascendiente</option>
+        <option value="2">Descendiente</option>
+    </select>
+    <button type="submit" class="btn btn-secondary" asp-route-id="@Model.Elementos.FirstOrDefault().IdFrenteObra" asp-route-estado="@Model.Elementos.FirstOrDefault().IdEstado">Ordenar</button>
+</form>
+
+<form method="get" asp-controller="CatalogoConceptos" asp-action="ListaCatalogoConceptos" >
+    <label asp-for="criterioBusqueda">Buscar por: </label>
+    <select asp-for="criterioBusqueda">
+        <option value="1">Codigo</option>
+        <option value="2">Concepto</option>
+        <option value="3">Descripcion</option>
+    </select>
+    <input type="text" asp-for="datoBusqueda" />
+    <button type="submit" class="btn btn-secondary" asp-route-id="@Model.Elementos.FirstOrDefault().IdFrenteObra" asp-route-estado="@Model.Elementos.FirstOrDefault().IdEstado">Buscar</button>
+</form>
+
+<p>Registros por pagina: @Model.registrosPagina - Total registros: @Model.totalRegistros</p>

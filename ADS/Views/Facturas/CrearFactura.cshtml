@@ -1,0 +1,144 @@
+﻿@model ConceptosViewModel
+@{
+    IList<ConceptoTemporal> Lista = Model.ConceptoTemporal.ToList();
+    int LongitudLista = Lista.Count;
+
+
+}
+
+<h1>CrearFactura</h1>
+
+<form asp-controller="Facturas" asp-action="CrearFacturaAccion">
+    <table class="table table-light">
+        <tr class="table table-dark">
+            <td>    </td>
+            <td>Concepto</td>
+            <td>Unidad</td>
+            <td>P/U</td>
+            <td>Disponible</td>
+            <td>Cantidad</td>
+            <td>Codigo</td>
+        </tr>
+        @if (Model.ConceptoTemporals != null)
+        {
+            for (int i = 0; i < Model.ConceptoTemporals.Count(); i++)
+            {
+                if (Model.ConceptoTemporals[i].Seleccion != false)
+                {
+                    <tr>
+                        <td>    </td>
+                        <td>@Model.ConceptoTemporals[i].Concepto.Concepto1</td>
+                        <td>@Model.ConceptoTemporals[i].Concepto.Unidad</td>
+                        <td>@Model.ConceptoTemporals[i].Concepto.CostoUnidad</td>
+                        <td>@Model.ConceptoTemporals[i].Concepto.Cantidad</td>
+                        <td>@Html.TextBoxFor(model => model.ConceptoTemporals[i].Cantidad)</td>
+                        @Html.HiddenFor(model => model.ConceptoTemporals[i].Concepto.IdConcepto)
+                        @Html.HiddenFor(model => model.ConceptoTemporals[i].Concepto.Codigo)
+                        @Html.HiddenFor(model => model.ConceptoTemporals[i].Concepto.Concepto1)
+                        @Html.HiddenFor(model => model.ConceptoTemporals[i].Concepto.Descripcion)
+                        @Html.HiddenFor(model => model.ConceptoTemporals[i].Concepto.Unidad)
+                        @Html.HiddenFor(model => model.ConceptoTemporals[i].Concepto.IdTipoConcepto)
+                        @Html.HiddenFor(model => model.ConceptoTemporals[i].Concepto.CostoUnidad)
+                        @Html.HiddenFor(model => model.ConceptoTemporals[i].Concepto.IdConceptoBase)
+                        @Html.HiddenFor(model => model.ConceptoTemporals[i].Concepto.Disponible)
+                        @Html.HiddenFor(model => model.ConceptoTemporals[i].Concepto.IdEstado)
+                        @Html.HiddenFor(model => model.ConceptoTemporals[i].Concepto.Cantidad)
+                        @Html.HiddenFor(model => model.ConceptoTemporals[i].Concepto.IdFrenteObra)
+                        @Html.HiddenFor(model => model.ConceptoTemporals[i].Seleccion)
+                        @Html.HiddenFor(model => model.ConceptoTemporal[i].Concepto.IdConcepto)
+                        @Html.HiddenFor(model => model.ConceptoTemporal[i].Concepto.Codigo)
+                        @Html.HiddenFor(model => model.ConceptoTemporal[i].Concepto.Concepto1)
+                        @Html.HiddenFor(model => model.ConceptoTemporal[i].Concepto.Descripcion)
+                        @Html.HiddenFor(model => model.ConceptoTemporal[i].Concepto.Unidad)
+                        @Html.HiddenFor(model => model.ConceptoTemporal[i].Concepto.IdTipoConcepto)
+                        @Html.HiddenFor(model => model.ConceptoTemporal[i].Concepto.CostoUnidad)
+                        @Html.HiddenFor(model => model.ConceptoTemporal[i].Concepto.IdConceptoBase)
+                        @Html.HiddenFor(model => model.ConceptoTemporal[i].Concepto.Disponible)
+                        @Html.HiddenFor(model => model.ConceptoTemporal[i].Concepto.IdEstado)
+                        @Html.HiddenFor(model => model.ConceptoTemporal[i].Concepto.Cantidad)
+                        @Html.HiddenFor(model => model.ConceptoTemporal[i].Concepto.IdFrenteObra)
+                        @Html.HiddenFor(model => model.ConceptoTemporal[i].Seleccion)
+                        <td>@Model.ConceptoTemporals[i].Concepto.Codigo</td>
+                    </tr>
+                }
+            }
+        }
+        
+    </table>
+    @Html.TextBoxFor(model => model.Descripcion)
+    <button type="submit" class="btn btn-success" data-bs-dismiss="modal">Confirmar</button> <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+        Abrir lista de Concepto
+    </button>
+</form>
+
+<!-- Button trigger modal -->
+
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            @using (Html.BeginForm("Recibir","Facturas",FormMethod.Post))
+            {
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Agregar Concepto</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <table class="table  table-bordered">
+                    <tr class="table-dark">
+                        <td>    </td>
+                        <td>Concepto</td>
+                        <td>Unidad</td>
+                        <td>P/U</td>
+                        <td>Cantidad Disponible</td>
+                        <td>Disponible</td>
+                    </tr>
+                    @for(int i = 0; i < Model.ConceptoTemporal.Count;i++)
+                    {
+                    <tr>
+                        @if (Model.ConceptoTemporal[i].Cantidad >= 0)
+                        {
+                            <td>@Html.CheckBoxFor(model => model.ConceptoTemporal[i].Seleccion)</td>
+                        }
+                        else
+                        {
+                            <td>    </td>
+                        }
+                        @Html.HiddenFor(model => model.ConceptoTemporal[i].Concepto.IdConcepto)
+                        @Html.HiddenFor(model => model.ConceptoTemporal[i].Concepto.Codigo)
+                        @Html.HiddenFor(model => model.ConceptoTemporal[i].Concepto.Concepto1)
+                        @Html.HiddenFor(model => model.ConceptoTemporal[i].Concepto.Descripcion)
+                        @Html.HiddenFor(model => model.ConceptoTemporal[i].Concepto.Unidad)
+                        @Html.HiddenFor(model => model.ConceptoTemporal[i].Concepto.IdTipoConcepto)
+                        @Html.HiddenFor(model => model.ConceptoTemporal[i].Concepto.CostoUnidad)
+                        @Html.HiddenFor(model => model.ConceptoTemporal[i].Concepto.IdConceptoBase)
+                        @Html.HiddenFor(model => model.ConceptoTemporal[i].Concepto.Disponible)
+                        @Html.HiddenFor(model => model.ConceptoTemporal[i].Concepto.IdEstado)
+                        @Html.HiddenFor(model => model.ConceptoTemporal[i].Concepto.Cantidad)
+                        @Html.HiddenFor(model => model.ConceptoTemporal[i].Concepto.IdFrenteObra)
+                        <td>@Model.ConceptoTemporal[i].Concepto.Concepto1</td>
+                        <td>@Model.ConceptoTemporal[i].Concepto.Unidad</td>
+                        <td>@Model.ConceptoTemporal[i].Concepto.CostoUnidad</td>
+                        <td>@Model.ConceptoTemporal[i].Concepto.Cantidad</td>
+                        @if (Model.ConceptoTemporal[i].Concepto.Disponible == true)
+                        {
+                        <td style="background-color : green"></td>
+                        }
+                        else
+                        {
+                        <td style="background-color : red"></td>
+                        }
+                    </tr>
+                    }
+                    
+                    </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+                <button type="submit" class="btn btn-success" data-bs-dismiss="modal">Confirmar</button>
+            </div>
+            }
+        </div>
+    </div>
+</div>

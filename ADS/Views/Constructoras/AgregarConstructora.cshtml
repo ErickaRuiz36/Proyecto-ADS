@@ -1,0 +1,39 @@
+﻿@model Constructora
+
+@{
+    ViewData["Title"] = "Agregar Constructora";
+}
+
+<h2>Agregar constructora</h2>
+
+<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+<form asp-controller="Constructoras" asp-action="AgregarConstructora">
+    <div class="mb-3">
+        <label asp-for="Nombre" class="form-label">Nombre constructora: </label>
+        <input type="text" asp-for="Nombre" class="form-control" />
+        <span asp-validation-for="Nombre" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Rfc" class="form-label">RFC: </label>
+        <input type="text" asp-for="Rfc" class="form-control" />
+        <span asp-validation-for="Rfc" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Telefono" class="form-label">Telefono: </label>
+        <input type="number" asp-for="Telefono" class="form-control" />
+        <span asp-validation-for="Telefono" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="CorreoContacto" class="form-label">Correo de contacto: </label>
+        <input type="email" asp-for="CorreoContacto" class="form-control" />
+        <span asp-validation-for="CorreoContacto" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Agregar</button>
+</form>
+
+<a class="btn btn-secondary" asp-controller="Constructoras" asp-action="ListaConstructoras">Cancelar</a>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -1,0 +1,77 @@
+﻿@model Proyecto
+
+@{
+    ViewData["Title"] = "Modificar Proyecto";
+}
+
+<h2>Modificar proyecto @Model.Nombre</h2>
+
+<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+<form asp-controller="Proyectos" asp-action="ModificarProyecto">
+    <input type="number" asp-for="IdProyecto" hidden />
+    <div class="mb-3">
+        <label asp-for="Nombre" class="form-label">Nombre del proyecto: </label>
+        <input type="text" asp-for="Nombre" class="form-control" value="@Model.Nombre" />
+        <span asp-validation-for="Nombre" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Descripcion" class="form-label">Descripcion: </label>
+        <input type="text" asp-for="Descripcion" class="form-control" value="@Model.Descripcion" />
+        <span asp-validation-for="Descripcion" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="FechaInicio" class="form-label" value="@Model.FechaInicio">Fecha de inicio: </label>
+        <input type="date" asp-for="FechaInicio" class="form-control" value="@Model.FechaInicio?.ToString("yyyy-MM-dd")" />
+        <span asp-validation-for="FechaInicio" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="FechaEstimadaTermino" class="form-label" >Fecha estimada de termino: </label>
+        <input type="date" asp-for="FechaEstimadaTermino" class="form-control" value="@Model.FechaEstimadaTermino?.ToString("yyyy-MM-dd")" />
+        <span asp-validation-for="FechaEstimadaTermino" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="RFCContratista" class="form-label">RFC del contratista: </label>
+        <input type="text" asp-for="RFCContratista" class="form-control" value="@Model.RFCContratista" />
+        <span asp-validation-for="RFCContratista" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="NumContrato" class="form-label">Numero de contrato: </label>
+        <input type="number" asp-for="NumContrato" class="form-control" value="@Model.NumContrato" />
+        <span asp-validation-for="NumContrato" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="FechaContrato" class="form-label">Fecha contrato: </label>
+        <input type="date" asp-for="FechaContrato" class="form-control" value="@Model.FechaContrato?.ToString("yyyy-MM-dd")" />
+        <span asp-validation-for="FechaContrato" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Modificar</button>
+</form>
+
+<a class="btn btn-secondary" asp-controller="Proyectos" asp-action="DetallesProyecto" asp-route-idProyecto="@Model.IdProyecto">Cancelar</a>
+<a class="btn btn-primary" onclick="restablecerValores()">Reestablecer</a>
+
+<script>
+    function restablecerValores() {
+        var Nombre = "@Html.Raw(Model.Nombre)";
+        var Descripcion = "@Html.Raw(Model.Descripcion)";
+        var FechaInicio = "@Html.Raw(Model.FechaInicio?.ToString("yyyy-MM-dd"))";
+        var FechaEstimadaTermino = "@Html.Raw(Model.FechaEstimadaTermino?.ToString("yyyy-MM-dd"))";
+        var RFCContratista = "@Html.Raw(Model.RFCContratista)";
+        var NumContrato = "@Html.Raw(Model.NumContrato)";
+        var FechaContrato = "@Html.Raw(Model.FechaContrato?.ToString("yyyy-MM-dd"))";
+
+        document.getElementById("Nombre").value = Nombre;
+        document.getElementById("Descripcion").value = Descripcion;
+        document.getElementById("FechaInicio").value = FechaInicio;
+        document.getElementById("FechaEstimadaTermino").value = FechaEstimadaTermino;
+        document.getElementById("RFCContratista").value = RFCContratista;
+        document.getElementById("NumContrato").value = NumContrato;
+        document.getElementById("FechaContrato").value = FechaContrato;
+    }
+
+</script>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -1,0 +1,10 @@
+﻿@{
+    ViewData["Title"] = "Inicio Superintendente";
+    var id = ViewData["idFrenteObra"];
+}
+
+<a asp-controller="Facturas" asp-action="CrearFactura" class="btn btn-primary mb-3">Crear Factura</a>
+<a asp-controller="Facturas" asp-action="ListadoFacturas" class="btn btn-primary mb-3" asp-route-id="@id">Facturas</a>
+<a asp-controller="CatalogoConceptos" asp-action="ListaCatalogoConceptos" asp-route-id="@id" class="btn btn-primary mb-3">Catalogo de conceptos</a>
+<a asp-controller="DirectorioArchivos" asp-action="DirectorioArchivos" class="btn btn-primary mb-3">Directorio de archivos</a>
+

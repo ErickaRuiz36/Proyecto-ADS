@@ -1,0 +1,63 @@
+﻿@model RevisarFacturaViewModel
+@{
+    ViewData["Title"] = "RevisarFactura";
+}
+
+<h1>RevisarFactura</h1>
+<h2>Descripcion de factura:</h2>
+<h3>@Model.FacturaRev.DescripcionServicio</h3>
+
+<h2>Fecha de creacion de la factura: @Model.FacturaRev.FechaRegistro</h2>
+<h2>Periodo: @Model.FacturaRev.Periodo</h2>
+<h2>Id de la factura: @Model.FacturaRev.IdFactura</h2>
+<h2>Total factura: @Model.FacturaRev.Total</h2>
+
+<table class="table table-light">
+    <tr class="table table-dark">
+        <td>    </td>
+        <td>Concepto</td>
+        <td>Unidad</td>
+        <td>P/U</td>
+        <td>Disponible</td>
+        <td>Cantidad</td>
+        <td>Codigo</td>
+    </tr>
+    @if (Model.FacturaRev.ConceptosFacturas != null)
+    {
+        foreach (var concepto in Model.FacturaRev.ConceptosFacturas)
+        {
+            
+            <tr>
+                <td>    </td>
+                <td>@concepto.Concepto1</td>
+                <td>@concepto.Unidad</td>
+                <td>@concepto.CostoUnidad</td>
+                <td>@concepto.Cantidad</td>
+                <td>@concepto.Codigo</td>
+                
+            </tr>
+            
+        }
+    }
+    <form asp-controller="Facturas">
+        <label for="Texto">Razon:</label>
+        <tr>
+
+            <td>
+                
+                <input type="text" id="Texto" name="Texto"/>
+            </td>
+            <td>
+                <a asp-action="RevisarFacturaAcceptar" asp-route-IdFactura="@Model.FacturaRev.IdFactura">Aprobar</a>
+            </td>
+            <td>
+                <a asp-action="RevisarFacturaRechazar" asp-route-IdFactura="@Model.FacturaRev.IdFactura">Rechazar</a>
+            </td>
+        </tr>
+    </form>
+    
+    
+
+</table>
+
+

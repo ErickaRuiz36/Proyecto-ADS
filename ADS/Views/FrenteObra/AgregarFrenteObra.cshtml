@@ -1,0 +1,89 @@
+﻿@model FrenteObra
+
+@{
+    ViewData["Title"] = "Agregar Frente Obra";
+}
+
+<h2>Agregar Frente de obra para proyecto con id @Model.IdProyecto</h2>
+
+<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+<form asp-controller="FrenteObra" asp-action="AgregarFrenteObra">
+    <input type="number" asp-for="IdProyecto" hidden />
+    <div class="mb-3">
+        <label asp-for="Nombre" class="form-label">Nombre: </label>
+        <input type="text" asp-for="Nombre" class="form-control" />
+        <span asp-validation-for="Nombre" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Descripcion" class="form-label">Descripcion: </label>
+        <input type="text" asp-for="Descripcion" class="form-control" />
+        <span asp-validation-for="Descripcion" class="text-danger"></span>
+    </div>
+    
+    <div class="mb-3">
+        <label asp-for="IdResidente" class="form-label">Residente: </label>
+        <input type="number" asp-for="IdResidente" class="form-control" />
+        <a href="#" id="seleccionar" class="btn btn-secondary">Seleccionar</a>
+        <span asp-validation-for="IdResidente" class="text-danger"></span>
+    </div>
+    <div id="ventanaEmergente"></div>
+    <div class="mb-3">
+        <label asp-for="IdSupervisor" class="form-label">Supervisor: </label>
+        <input type="number" asp-for="IdSupervisor" class="form-control" />
+
+        <span asp-validation-for="IdSupervisor" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="IdSuperintendente" class="form-label">Superintendente: </label>
+        <input type="number" asp-for="IdSuperintendente" class="form-control"  />
+        <span asp-validation-for="IdSuperintendente" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="IdConstructora" class="form-label">Constructora: </label>
+        <input type="number" asp-for="IdConstructora" class="form-control"  />
+        <span asp-validation-for="IdConstructora" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="NumContrato" class="form-label">Numero de contrato: </label>
+        <input type="number" asp-for="NumContrato" class="form-control" />
+        <span asp-validation-for="NumContrato" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="FechaContrato" class="form-label">Fecha de Contrato: </label>
+        <input type="date" asp-for="FechaContrato" class="form-control" />
+        <span asp-validation-for="FechaContrato" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="FechaInicio" class="form-label">Fecha de inicio: </label>
+        <input type="date" asp-for="FechaInicio" class="form-control" />
+        <span asp-validation-for="FechaInicio" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="FechaEstimadaTermino" class="form-label">Fecha estimada de termino: </label>
+        <input type="date" asp-for="FechaEstimadaTermino" class="form-control" />
+        <span asp-validation-for="FechaEstimadaTermino" class="text-danger"></span>
+    </div>
+    
+    <button type="submit" class="btn btn-primary">Agregar</button>
+    
+</form>
+
+<a class="btn btn-secondary" asp-controller="Proyectos" asp-action="DetallesProyecto" asp-route-idProyecto="@Model.IdProyecto">Cancelar</a>
+
+<script>
+    $(document).ready(function () {
+        $("#seleccionar").click(function () {
+            // Puedes pasar el número entero como un parámetro en la llamada AJAX
+            var idTipoUsuario = 2; // Reemplaza esto con el valor que desees pasar
+            $.get("/FrenteObra/SeleccionarUsuario?idTipoUsuario=" + idTipoUsuario, function (data) {
+                $("#ventanaEmergente").html(data);
+                // Lógica adicional para mostrar la ventana emergente, por ejemplo, usando un modal Bootstrap.
+            });
+        });
+    });
+</script>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -1,0 +1,104 @@
+﻿@using Microsoft.AspNetCore.Identity
+@model ConceptoViewModel
+
+@{
+    ViewData["Title"] = "Modificar Concepto";
+
+}
+
+<h2>Modificar concepto @Model.Codigo</h2>
+
+<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+<form asp-controller="CatalogoConceptos" asp-action="ModificarConcepto">
+    <input type="number" asp-for="IdConcepto" hidden />
+    <input type="number" asp-for="IdFrenteObra" hidden />
+    <div class="mb-3">
+        <label asp-for="Codigo" class="form-label">Codigo: </label>
+        <input type="text" asp-for="Codigo" class="form-control" value="@Model.Codigo" />
+        <span asp-validation-for="Codigo" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Concepto1" class="form-label">Concepto: </label>
+        <input type="text" asp-for="Concepto1" class="form-control" value="@Model.Concepto1" />
+        <span asp-validation-for="Concepto1" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Descripcion" class="form-label">Descripcion: </label>
+        <input type="text" asp-for="Descripcion" class="form-control" value="@Model.Descripcion" />
+        <span asp-validation-for="Descripcion" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Cantidad" class="form-label">Cantidad: </label>
+        <input type="number" asp-for="Cantidad" class="form-control" value="@Model.Cantidad" />
+        <span asp-validation-for="Cantidad" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Unidad" class="form-label">Unidad: </label>
+        <input type="text" asp-for="Unidad" class="form-control" value="@Model.Unidad" />
+        <span asp-validation-for="Unidad" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="CostoUnidad" class="form-label">Costo unitario: </label>
+        <input type="number" asp-for="CostoUnidad" class="form-control" value="@Model.CostoUnidad" />
+        <span asp-validation-for="CostoUnidad" class="text-danger"></span>
+    </div>
+    @if (User.IsInRole("Administrador"))
+    {
+        <div class="mb-3">
+            <label asp-for="IdTipoConcepto" class="form-label">Tipo Concepto: </label>
+            <select asp-for="IdTipoConcepto" asp-items="Model.TiposConcepto" class="form-select">
+            </select>
+            <span asp-validation-for="IdTipoConcepto" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="IdConceptoBase" class="form-label">Concepto Base: </label>
+            <input type="text" asp-for="IdConceptoBase" class="form-control" value="@Model.IdConceptoBase" />
+            <span asp-validation-for="IdConceptoBase" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="IdEstado" class="form-label">Estado: </label>
+            <select asp-for="IdEstado" asp-items="Model.Estados" class="form-select">
+            </select>
+            <span asp-validation-for="IdEstado" class="text-danger"></span>
+        </div>
+    }
+    @if (User.IsInRole("Superintendente"))
+    {
+        <input type="text" asp-for="IdEstado" value="1" hidden />
+        <input type="text" asp-for="IdTipoConcepto" hidden />
+    }
+
+    <button type="submit" class="btn btn-primary">Modificar</button>
+</form>
+
+<a class="btn btn-secondary" asp-controller="CatalogoConceptos" asp-action="ListaCatalogoConceptos" asp-route-id="@Model.IdFrenteObra">Cancelar</a>
+<a class="btn btn-primary" onclick="restablecerValores()">Reestablecer</a>
+
+<script>
+    function restablecerValores() {
+        var Codigo = "@Html.Raw(Model.Codigo)";
+        var Concepto1 = "@Html.Raw(Model.Concepto1)";
+        var Descripcion = "@Html.Raw(Model.Descripcion)";
+        var Cantidad = "@Html.Raw(Model.Cantidad)";
+        var IdTipoConcepto = "@Html.Raw(Model.IdTipoConcepto)";
+        var CostoUnidad = "@Html.Raw(Model.CostoUnidad)";
+        var IdConceptoBase = "@Html.Raw(Model.IdConceptoBase)";
+        var IdEstado = "@Html.Raw(Model.IdEstado)";
+        var Unidad = "@Html.Raw(Model.Unidad)";
+
+        document.getElementById("Codigo").value = Codigo;
+        document.getElementById("Concepto1").value = Concepto1;
+        document.getElementById("Descripcion").value = Descripcion;
+        document.getElementById("Cantidad").value = Cantidad;
+        document.getElementById("IdTipoConcepto").value = IdTipoConcepto;
+        document.getElementById("CostoUnidad").value = CostoUnidad;
+        document.getElementById("IdConceptoBase").value = IdConceptoBase;
+        document.getElementById("IdEstado").value = IdEstado;
+        document.getElementById("Unidad").value = Unidad;
+    }
+</script>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

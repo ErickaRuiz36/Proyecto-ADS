@@ -1,0 +1,66 @@
+﻿@model ReporteDiario
+@{
+}
+
+<form asp-controller="ReporteDiario" asp-action="CrearReporteDiario" method="post">
+
+    <label for="ActividadesReportes">Actividades:</label>
+    <table border="1">
+        <tr>
+            <th>Numero</th>
+            <th>Actividad</th>
+            <th>Descripcion</th>
+            <th>Acciones</th>
+        </tr>
+        <tr>
+            <td>..</td>
+            <td><input type="text" asp-for="ActividadesReportes" name="Actividad" id="Actividad" required></td>
+            <td><textarea asp-for="Descripcion" name="Descripcion" rows="4" id="Descripcion" required></textarea></td>
+            <td>
+                <button type="button">Eliminar</button>
+                <button type="button">Editar</button>
+            </td>
+        </tr>
+    </table>
+    <button type="button"> Agregar</button>
+    <table BORDER="1">
+        <tr>
+            <th>Numero</th>
+            <th>Problematica</th>
+            <th>Estado</th>
+            <th>Acciones Correctivas</th>
+            <th>Acciones</th>
+        </tr>
+        <tr>
+            <td>..</td>
+            <td><input type="text" asp-for="ActividadNavigation" name="Problema" id="Problematica" required></td>
+            <td>
+                <select asp-for="IdEstadoProblemaNavigation" name="EstadoP">
+                    <option value="1">No Atendido</option>
+                    <option value="2">En Progreso</option>
+                    <option value="3">Atendido</option>
+                </select>
+            </td>
+            <td>
+            <td><textarea Asp-for="ActividadesCorrectivasNavigation" name="ActividadesCorrectivas" id="ActividadesCorrectivas" rows="4" required></textarea></td>
+            <td>
+                <a class="btn btn-secondary" asp-controller="ReporteDiario" asp-action="EliminarActividad">Eliminar</a>
+                <button type="button">Editar</button>
+            </td>
+        </tr>
+    </table>
+    <a class="btn btn-secondary" asp-controller="ReporteDiario" asp-action="CrearReporte">Agregar</a>
+
+
+
+
+    <label for="fotografias">Iamgenes:</label>
+    <input asp-for="ImagenesReportes" type="file" name="SRC" accept="image/*" multiple>
+
+    <label for="HorasLLuvia">Horas de Lluvia:</label>
+    <input asp-for="HorasLluvia" type="number" name="HorasLluvia" min="0" max="24" maxlength="2">
+
+    <button type="submit">Guardar</button>
+
+</form>
+

@@ -1,0 +1,65 @@
+﻿@model Proyecto
+
+@{
+    ViewData["Title"] = "Detalles Proyecto";
+}
+
+<a class="btn btn-secondary" asp-controller="Proyectos" asp-action="ListaProyectos">Atras</a>
+
+<h2>@Model.Nombre</h2>
+
+<div id="ContenedorInformacion">
+	<strong>Nombre proyecto: </strong><p>@Model.Nombre</p>
+	<strong>Descripcion: </strong><p>@Model.Descripcion</p>
+	<strong>Fecha de inicio: </strong><p>@Model.FechaInicio</p>
+	<strong>Fecha estimada de termino: </strong><p>@Model.FechaEstimadaTermino</p>
+	<strong>RFC del contratista: </strong><p>@Model.RFCContratista</p>
+	<strong>Numero de contrato: </strong><p>@Model.NumContrato</p>
+	<strong>Fecha del contrato: </strong><p>@Model.FechaContrato</p>
+
+</div>
+
+<a class="btn btn-primary" asp-controller="Proyectos" asp-action="ModificarProyecto" asp-route-idProyecto="@Model.IdProyecto">Editar</a>
+<a class="btn btn-danger" asp-controller="Proyectos" asp-action="EliminarProyecto" asp-route-idProyecto="@Model.IdProyecto">Eliminar</a>
+<br />
+<h3>Frentes de obra</h3>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Descripcion</th>
+            <th>FechaInicio</th>
+            <th>FechaEstimadaTermino</th>
+            <th>Constructora</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var frente in Model.FrenteObras)
+        {
+            <tr>
+                <td>
+                    @frente.Nombre
+                </td>
+                <td>
+                    @frente.Descripcion
+                </td>
+                <td>
+                    @frente.FechaInicio
+                </td>
+                <td>
+                    @frente.FechaEstimadaTermino
+                </td>
+                <td>
+                    @frente.IdConstructoraNavigation.Nombre
+                </td>
+                <td>
+                    <a class="btn btn-primary" asp-controller="FrenteObra" asp-action="DetallesFrenteObra" asp-route-idFrenteObra="@frente.IdFrenteObra">Detalles</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a asp-controller="FrenteObra" asp-action="AgregarFrenteObra" class="btn btn-primary mb-3" asp-route-idProyecto="@Model.IdProyecto">Agregar un frente de obra</a>

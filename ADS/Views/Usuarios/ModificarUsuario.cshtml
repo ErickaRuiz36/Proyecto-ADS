@@ -1,0 +1,92 @@
+﻿@model UsuarioViewModel
+
+@{
+	ViewData["Title"] = "Modificar Usuario";
+
+}
+
+<h2>Modificar usuario @Model.NombreUsuario</h2>
+
+<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+<form asp-controller="Usuarios" asp-action="ModificarUsuario">
+    <input type="number" asp-for="IdUsuario" hidden />
+    <div class="mb-3">
+        <label asp-for="Correo" class="form-label">Correo: </label>
+        <input type="email" asp-for="Correo" class="form-control" value="@Model.Correo"/>
+        <span asp-validation-for="Correo" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="NombreUsuario" class="form-label">Nombre Usuario: </label>
+        <input type="text" asp-for="NombreUsuario" class="form-control" value="@Model.NombreUsuario" />
+        <span asp-validation-for="NombreUsuario" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Clave" class="form-label">Clave: </label>
+        <input type="text" asp-for="Clave" class="form-control" value="@Model.Clave" />
+        <span asp-validation-for="Clave" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Nombre" class="form-label">Nombre: </label>
+        <input type="text" asp-for="Nombre" class="form-control" value="@Model.Nombre" />
+        <span asp-validation-for="Nombre" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="ApellidoP" class="form-label">Apellido Paterno: </label>
+        <input type="text" asp-for="ApellidoP" class="form-control" value="@Model.ApellidoP" />
+        <span asp-validation-for="ApellidoP" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="ApellidoM" class="form-label">Apellido Materno: </label>
+        <input type="text" asp-for="ApellidoM" class="form-control" value="@Model.ApellidoM" />
+        <span asp-validation-for="ApellidoM" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Rfc" class="form-label">RFC: </label>
+        <input type="text" asp-for="Rfc" class="form-control" value="@Model.Rfc" />
+        <span asp-validation-for="Rfc" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Telefono" class="form-label">Telefono: </label>
+        <input type="text" asp-for="Telefono" class="form-control" value="@Model.Telefono" />
+        <span asp-validation-for="Telefono" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="IdTipoUsuario" class="form-label">Tipo Usuario: </label>
+        <select asp-for="IdTipoUsuario" asp-items="Model.TiposUsuario" class="form-select" >
+        </select>
+        <span asp-validation-for="IdTipoUsuario" class="text-danger"></span>
+    </div>
+        <button type="submit" class="btn btn-primary">Modificar</button>
+</form>
+
+<a class="btn btn-secondary" asp-controller="Usuarios" asp-action="DetallesUsuario" asp-route-idUsuario="@Model.IdUsuario">Cancelar</a>
+<a class="btn btn-primary" onclick="restablecerValores()">Reestablecer</a>
+
+<script>
+    function restablecerValores(){
+        var correo = "@Html.Raw(Model.Correo)";
+        var nombreUsuario = "@Html.Raw(Model.NombreUsuario)";
+        var clave = "@Html.Raw(Model.Clave)";
+        var nombre = "@Html.Raw(Model.Nombre)";
+        var apellidoP = "@Html.Raw(Model.ApellidoP)";
+        var apellidoM = "@Html.Raw(Model.ApellidoM)";
+        var rfc = "@Html.Raw(Model.Rfc)";
+        var telefono = "@Html.Raw(Model.Telefono)";
+        var idTipoUsuario = "@Html.Raw(Model.IdTipoUsuario)";
+
+        document.getElementById("Correo").value = correo;
+        document.getElementById("NombreUsuario").value = nombreUsuario;
+        document.getElementById("Clave").value = clave;
+        document.getElementById("Nombre").value = nombre;
+        document.getElementById("ApellidoP").value = apellidoP;
+        document.getElementById("ApellidoM").value = apellidoM;
+        document.getElementById("Rfc").value = rfc;
+        document.getElementById("Telefono").value = telefono;
+        document.getElementById("IdTipoUsuario").value = idTipoUsuario;
+    }
+</script>
+
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+}

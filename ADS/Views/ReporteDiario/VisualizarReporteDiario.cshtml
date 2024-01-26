@@ -1,0 +1,68 @@
+﻿@model ReporteDiario
+@{
+    ViewData["Title"] = "Detalles Reporte";
+}
+
+<a class="btn btn-secondary" asp-controller="ReporteDiario" asp-action="ListaReportesDiarios">Atras</a>
+
+<h2>Reporte</h2>
+
+<div id="ContenedorInformacion">
+    <strong>Creado por: </strong> <p>@Model.</p>
+    <strong>Fecha: </strong>  <p>@Model.Fecha</p>
+    <strong>Frente de Obra numero: </strong><p>@Model.IdFrenteObra</p>
+     <strong>Estado: </strong><p>@Model.IdEstado</p>
+</div>
+
+
+<table class="table" border="1">
+    <thead>
+        <tr>
+            <th>Actividad</th>
+            <th>Descripcion</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var reporteDiario in Model.ActividadesReportes){
+        <tr>
+                <th>@reporteDiario.Actividad </th>
+                <th>@reporteDiario.Descripcion</th>
+        </tr>
+        }
+    </tbody>
+</table>
+
+<p>Horas de lluvia @Model.HorasLluvia</p>
+
+<table>
+    <thead>
+        <tr>
+            <th>Problematica</th>
+            <th>Estado</th>
+            <th>Acciones correctivas</th>
+        </tr>
+    </thead>
+    
+    <tbody>
+        @foreach(var reporteDiario in Model.ProblemasReportes){
+            <tr>
+                <th>@reporteDiario.Problema</th>
+                <th>@reporteDiario.IdEstadoProblema</th>
+                <th>@reporteDiario.ActividadesCorrectivas</th>
+            </tr>
+        }
+    </tbody>
+</table>
+ <p> Progreso @Model.Progreso</p>
+
+ @foreach(var reporteDiario in Model.ImagenesReportes){
+ <p>Imagenes @reporteDiario.Src </p>
+ }
+
+
+
+
+
+
+
+

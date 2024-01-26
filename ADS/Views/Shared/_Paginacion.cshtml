@@ -1,0 +1,54 @@
+﻿@model PaginacionRespuesta
+
+@{
+	var plantillaLink = string.Concat(Model.baseURL, "?pagina={0}&registrosPagina={1}&criterioOrden={2}&direccionOrden={3}&criterioBusqueda={4}&datoBusqueda={5}");
+
+	if (Model.id != 0)
+	{
+		plantillaLink = string.Concat(plantillaLink, "&idFrenteObra=", Model.id);
+	}
+	
+	plantillaLink = string.Concat(plantillaLink, "&estado=", Model.estado);
+
+	var activarBotonAnterior = Model.Pagina > 1;
+	var activarBotonSiguiente = Model.Pagina < Model.totalPaginas;
+}
+
+<nav>
+	<ul class="pagination">
+		<li class="page-item @(activarBotonAnterior ? null: "disabled")">
+			@if (activarBotonAnterior)
+			{
+				<a class="page-link" href="@string.Format(plantillaLink, Model.Pagina - 1, Model.registrosPagina,Model.criterioOrden,Model.direccionOrden,Model.criterioBusqueda,Model.datoBusqueda)">
+					Anterior
+				</a>
+			}
+			else
+			{
+				<span class="page-link">Anterior</span>
+			}
+		</li>
+		
+		@for(var pagina = 1; pagina <= Model.totalPaginas; pagina++)
+		{
+			<li class="page-item @(pagina == Model.Pagina ? "active" : null)">
+				<a class="page-link" href="@string.Format(plantillaLink,pagina,Model.registrosPagina,Model.criterioOrden,Model.direccionOrden,Model.criterioBusqueda,Model.datoBusqueda)">
+					@pagina
+				</a>
+
+			</li>
+		}
+		<li class="page-item @(activarBotonSiguiente ? null: "disabled")">
+			@if (activarBotonSiguiente)
+			{
+				<a class="page-link" href="@string.Format(plantillaLink, Model.Pagina + 1, Model.registrosPagina,Model.criterioOrden,Model.direccionOrden,Model.criterioBusqueda,Model.datoBusqueda)">
+					Siguiente
+				</a>
+			}
+			else
+			{
+				<span class="page-link">Siguiente</span>
+			}
+		</li>
+	</ul>
+</nav>

@@ -1,0 +1,121 @@
+﻿@model PaginacionRespuesta<Factura>
+
+@{
+    ViewData["Title"] = "Lista Facturas";
+}
+
+<h1>Facturas</h1>
+
+<a class="btn btn-secondary" asp-controller="Home" asp-action="Index">Regresar</a>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>IdFactura</th>
+            <th>Frente de obra</th>
+            <th>Fecha de registro</th>
+            <th>Periodo</th>
+            <th>Residente</th>
+            <th>Total</th>
+            <th>Estado</th>
+            <th>    </th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @if(Model.Elementos != null)
+        {
+            foreach (var factura in Model.Elementos)
+            {
+                <tr>
+                    <td>
+                        @factura.IdFactura
+                    </td>
+                    <td>
+                        @factura.IdFrenteObra
+                    </td>
+                    <td>
+                        @factura.FechaRegistro
+                    </td>
+                    <td>
+                        @factura.Periodo
+                    </td>
+                    @if (factura.Residente != null)
+                    {
+                        <td>
+                            @factura.Residente
+                        </td>
+                    }
+                    else
+                    {
+                        <td>    </td>
+                    }
+                    <td>
+                        @factura.Total
+                    </td>
+                    @switch (factura.IdEstado)
+                    {
+                        case 1:
+                            <td style="background-color:yellow">PENDIENTE</td>
+                            break;
+                        case 3:
+                            <td style="background-color:red">RECHAZADO</td>
+                            break;
+                        case 2:
+                            <td style="background-color:green">APROBADO</td>
+                            break;
+                        default:
+                        <td>    </td>
+                            break;
+                    }
+                    
+                    @if(factura.IdEstado==1){
+                        <td>
+                            <a class="btn btn-primary" asp-controller="Facturas" asp-action="RevisarFactura" asp-route-IdFactura="@factura.IdFactura">Revisar</a>
+                        </td>
+                    }
+                    else if(factura.IdEstado==3)
+                    {
+                        <td>
+                                
+                        </td>
+                    }
+                    else
+                    {
+                        <td>    </td>
+                    }
+                    
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+<partial name="_Paginacion" />
+
+<a asp-controller="Facturas" asp-action="AgregarConstructora" class="btn btn-primary mb-3">Crear Factura</a>
+
+<form method="get" asp-controller="Constructoras" asp-action="ListaConstructoras">
+    <label asp-for="criterioOrden">Ordenar por: </label>
+    <select asp-for="criterioOrden">
+        <option value="1">Periodo</option>
+        <option value="2">Frente de obra</option>
+    </select>
+    <select asp-for="direccionOrden">
+        <option value="1">Ascendiente</option>
+        <option value="2">Descendiente</option>
+    </select>
+    <button type="submit" class="btn btn-secondary">Ordenar</button>
+</form>
+
+<form method="get" asp-controller="Constructoras" asp-action="ListaConstructoras">
+    <label asp-for="criterioBusqueda">Buscar por: </label>
+    <select asp-for="criterioBusqueda">
+        <option value="1">Periodo</option>
+        <option value="2">Frente de obra</option>
+    </select>
+    <input type="text" asp-for="datoBusqueda" />
+    <button type="submit" class="btn btn-secondary">Buscar</button>
+</form>
+
+<p>Registros por pagina: @Model.registrosPagina - Total registros: @Model.totalRegistros</p>

@@ -1,0 +1,34 @@
+@using Microsoft.AspNetCore.Identity
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<h1 class="display-4">Welcome @ViewData["nombreUsuario"]</h1>
+<h2>Rol: @ViewData["tipoUsuario"]</h2>
+<h3>Id Frente: @ViewData["idFrenteObra"]</h3>
+    
+@if (User.IsInRole("Administrador"))
+{
+    <partial name="_InicioAdmin" />
+}
+
+@if (User.IsInRole("Residente"))
+{
+    <partial name="_InicioResidente" />
+}
+
+@if (User.IsInRole("Supervisor"))
+{
+    <partial name="_InicioSupervisor" />
+}
+
+@if (User.IsInRole("Superintendente"))
+{
+    <partial name="_InicioSuperintendente" />
+}
+
+@if (User.IsInRole("Directivo"))
+{
+    <partial name="_InicioDirectivo" />
+}

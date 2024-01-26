@@ -1,0 +1,42 @@
+﻿@model IEnumerable<ReporteDiario>
+@{
+    ViewData["Title"] = "Lista de Reportes";
+    ViewBag.Fecha = DateTime.Now.ToString("yyyy-MM-dd");
+}
+
+<h1>Lista de Reportes Diarios</h1>
+
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Fecha</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null)
+        {
+            foreach (var reporteDiario in Model)
+            {
+                <tr>
+                    <td>@reporteDiario.IdReporte</td>
+                    <td>@reporteDiario.Fecha</td>
+                    <td>@reporteDiario.IdEstado</td>
+                    <td>
+                        <a class="btn btn-primary" asp-controller="ReporteDiario" asp-action="VisualizarReporteDiario" asp-route-idProyecto="@reporteDiario.IdReporte">Detalles</a>
+                        <a class="btn btn-primary" asp-controller="ReporteDiario" asp-action="EditarReporte" asp-route-idProyecto="@reporteDiario.IdReporte">Editar</a>
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="4">No hay reportes diarios</td>
+            </tr>
+            
+        }
+    </tbody>
+</table>

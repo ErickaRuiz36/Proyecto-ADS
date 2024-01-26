@@ -1,0 +1,85 @@
+﻿@model PaginacionRespuesta<UsuarioViewModel>
+
+@{
+    ViewData["Title"] = "Lista Usuarios";
+}
+
+<h1>Usuarios</h1>
+
+<a class="btn btn-secondary" asp-controller="Home" asp-action="Index">Regresar</a>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nombre Usuario</th>
+            <th>Correo</th>
+            <th>Nombre</th>
+            <th>ApellidoP</th>
+            <th>ApellidoM</th>
+            <th>Tipo Usuario</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var usuario in Model.Elementos)
+        {
+            <tr>
+                <td>
+                    @usuario.NombreUsuario
+                </td>
+                <td>
+                    @usuario.Correo
+                </td>
+                <td>
+                    @usuario.Nombre
+                </td>
+                <td>
+                    @usuario.ApellidoP
+                </td>
+                <td>
+                    @usuario.ApellidoM
+                </td>
+                <td>
+                    @usuario.TipoUsuario
+                </td>
+                <td>
+                    <a class="btn btn-primary" asp-controller="Usuarios" asp-action="DetallesUsuario" asp-route-idUsuario="@usuario.IdUsuario">Detalles</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<partial name="_Paginacion" />
+
+<a asp-controller="Usuarios" asp-action="RegistrarUsuario" class="btn btn-primary mb-3">Registrar nuevo usuario</a>
+
+<form method="get" asp-controller="Usuarios" asp-action="ListaUsuarios">
+    <label asp-for="criterioOrden">Ordenar por: </label>
+    <select asp-for="criterioOrden">
+        <option value="1">Nombre de Usuario</option>
+        <option value="2">Correo</option>
+        <option value="3">Nombre</option>
+    </select>
+    <select asp-for="direccionOrden">
+        <option value="1">Ascendiente</option>
+        <option value="2">Descendiente</option>
+    </select>
+    <button type="submit" class="btn btn-secondary">Ordenar</button>
+</form>
+
+<form method="get" asp-controller="Usuarios" asp-action="ListaUsuarios">
+    <label asp-for="criterioBusqueda">Buscar por: </label>
+    <select asp-for="criterioBusqueda">
+        <option value="1">Nombre de Usuario</option>
+        <option value="2">Correo</option>
+        <option value="3">Nombre</option>
+        <option value="4">Apellido Paterno</option>
+        <option value="5">Apellido Materno</option>
+        <option value="6">RFC</option>
+    </select>
+    <input type="text" asp-for="datoBusqueda"/>
+    <button type="submit" class="btn btn-secondary">Buscar</button>
+</form>
+
+<p>Registros por pagina: @Model.registrosPagina - Total registros: @Model.totalRegistros</p>

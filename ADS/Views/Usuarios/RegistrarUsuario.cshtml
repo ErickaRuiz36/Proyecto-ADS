@@ -1,0 +1,64 @@
+﻿@model UsuarioViewModel
+
+@{
+    ViewData["Title"] = "Registrar Usuario";
+}
+
+<h2>Registrar Usuario</h2>
+
+<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+<form asp-controller="Usuarios" asp-action="RegistrarUsuario">
+    <div class="mb-3">
+        <label asp-for="Correo" class="form-label">Correo: </label>
+        <input type="email" asp-for="Correo" class="form-control" />
+        <span asp-validation-for="Correo" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="NombreUsuario" class="form-label">Nombre Usuario: </label>
+        <input type="text" asp-for="NombreUsuario" class="form-control" />
+        <span asp-validation-for="NombreUsuario" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Clave" class="form-label">Clave: </label>
+        <input type="text" asp-for="Clave" class="form-control" />
+        <span asp-validation-for="Clave" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Nombre" class="form-label">Nombre: </label>
+        <input type="text" asp-for="Nombre" class="form-control" />
+        <span asp-validation-for="Nombre" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="ApellidoP" class="form-label">Apellido Paterno: </label>
+        <input type="text" asp-for="ApellidoP" class="form-control" />
+        <span asp-validation-for="ApellidoP" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="ApellidoM" class="form-label">Apellido Materno: </label>
+        <input type="text" asp-for="ApellidoM" class="form-control" />
+        <span asp-validation-for="ApellidoM" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Rfc" class="form-label">RFC: </label>
+        <input type="text" asp-for="Rfc" class="form-control" />
+        <span asp-validation-for="Rfc" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Telefono" class="form-label">Telefono: </label>
+        <input type="text" asp-for="Telefono" class="form-control" />
+        <span asp-validation-for="Telefono" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="IdTipoUsuario" class="form-label">Tipo Usuario: </label>
+        <select asp-for="IdTipoUsuario" asp-items="Model.TiposUsuario" class="form-select">
+        </select>
+        <span asp-validation-for="IdTipoUsuario" class="text-danger"></span>
+    </div>
+        <button type="submit" class="btn btn-primary">Registrar</button>
+        <a class="btn btn-secondary" asp-controller="Usuarios" asp-action="ListaUsuarios">Cancelar</a>
+</form>
+
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+}

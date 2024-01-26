@@ -1,0 +1,106 @@
+﻿@model ConceptoViewModel
+
+@{
+    ViewData["Title"] = "Agregar Concepto";
+}
+
+<h2>Agregar Concepto</h2>
+
+<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+<form asp-controller="CatalogoConceptos" asp-action="AgregarConcepto">
+    <input type="number" asp-for="IdFrenteObra" readonly hidden />
+    <div class="mb-3">
+        <label asp-for="Codigo" class="form-label">Codigo: </label>
+        <input type="text" asp-for="Codigo" class="form-control"/>
+        <span asp-validation-for="Codigo" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Concepto1" class="form-label">Concepto: </label>
+        @if (Model.IdConceptoBase != null)
+        {
+            <input type="text" asp-for="Concepto1" class="form-control" readonly/>
+        }
+        else
+        {
+            <input type="text" asp-for="Concepto1" class="form-control" />
+        }
+
+        <span asp-validation-for="Concepto1" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Descripcion" class="form-label">Descripcion: </label>
+        @if (Model.IdConceptoBase != null)
+        {
+            <input type="text" asp-for="Descripcion" class="form-control" readonly/>
+        }
+        else
+        {
+            <input type="text" asp-for="Descripcion" class="form-control" />
+        }
+        
+        <span asp-validation-for="Descripcion" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Cantidad" class="form-label">Cantidad: </label>
+        <input type="number" asp-for="Cantidad" class="form-control" />
+        <span asp-validation-for="Cantidad" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Unidad" class="form-label">Unidad: </label>
+        @if (Model.IdConceptoBase != null)
+        {
+            <input type="text" asp-for="Unidad" class="form-control" readonly/>
+        }
+        else
+        {
+            <input type="text" asp-for="Unidad" class="form-control" />
+        }
+        
+        <span asp-validation-for="Unidad" class="text-danger"></span>
+    </div>
+    
+    <div class="mb-3">
+        <label asp-for="IdTipoConcepto" class="form-label">Tipo Concepto: </label>
+        @if (Model.IdConceptoBase != null)
+        {
+            <select asp-for="IdTipoConcepto" class="form-select" >
+                <option value="2">Adicional</option>
+            </select>
+        }
+        else
+        {
+            <select asp-for="IdTipoConcepto" class="form-select">
+                <option value="1">Normal</option>
+                <option value="3">Extraordinario</option>
+            </select>
+        }
+        
+        <span asp-validation-for="IdTipoConcepto" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="CostoUnidad" class="form-label">Costo unitario: </label>
+        <input type="number" asp-for="CostoUnidad" class="form-control" />
+        <span asp-validation-for="CostoUnidad" class="text-danger"></span>
+    </div>
+    @if (Model.IdConceptoBase != null)
+    {
+        <div class="mb-3">
+            <label asp-for="IdConceptoBase" class="form-label">Concepto Base: </label>
+            <input type="number" asp-for="IdConceptoBase" class="form-control" readonly/>
+            <span asp-validation-for="IdConceptoBase" class="text-danger"></span>
+        </div>
+    }
+    else
+    {
+        
+    }
+    
+    <button type="submit" class="btn btn-primary">Registrar</button>
+    <a class="btn btn-secondary" asp-controller="CatalogoConceptos" asp-action="ListaCatalogoConceptos"  asp-route-id="@Model.IdFrenteObra">Cancelar</a>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
